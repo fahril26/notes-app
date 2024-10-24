@@ -18,7 +18,7 @@ export default class NoteAppHeader extends Component {
 
     const { onSearch } = this.props;
 
-    onSearch(event.target.value);
+    onSearch(String(event.target.value).toLowerCase());
   }
 
   render() {
