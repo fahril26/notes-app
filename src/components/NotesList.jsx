@@ -16,7 +16,7 @@ export default function NotesList({ notes, onDelete, onMove }) {
           ))}
         </div>
       ) : (
-        <p className="notes-list__empty-message">TIdak ada catatan</p>
+        <span className="notes-list__empty-message">TIdak ada catatan</span>
       )}
     </>
   );

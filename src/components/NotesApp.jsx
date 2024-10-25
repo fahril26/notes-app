@@ -19,6 +19,7 @@ class MyNotesApp extends React.Component {
     this.onDeleteHandler = this.onDeleteHandler.bind(this);
     this.onMoveHandler = this.onMoveHandler.bind(this);
     this.onSearchHandler = this.onSearchHandler.bind(this);
+    this.getNotes = this.getNotes.bind(this);
   }
 
   onAddToNodeList(dataNote) {
@@ -61,34 +62,32 @@ class MyNotesApp extends React.Component {
     });
   }
 
+  getNotes(notes) {
+    return this.state.keySearch
+      ? notes.filter((note) =>
+          note.title.toLocaleLowerCase().includes(this.state.keySearch)
+        )
+      : notes.filter((note) => !note.archived);
+  }
+
   render() {
-    const getNotes = this.state.keySearch
-      ? this.state.notes.filter(
-          (note) =>
-            note.title.toLocaleLowerCase().includes(this.state.keySearch) &&
-            !note.archived
-        )
-      : this.state.notes.filter((note) => !note.archived);
+    const activeNote = this.getNotes(
+      this.state.notes.filter((note) => !note.archived)
+    );
 
-    const getArchive = this.state.keySearch
-      ? this.state.notes.filter(
-          (note) =>
-            note.title.toLocaleLowerCase().includes(this.state.keySearch) &&
-            note.archived
-        )
-      : this.state.notes.filter((note) => note.archived);
-
+    const archivedNote = this.getNotes(
+      this.state.notes.filter((note) => note.archived)
+    );
     return (
       <div>
         <Header onSearch={this.onSearchHandler} />
-
         <div className="note-app__body">
           <NoteMaker onAddToNodeList={this.onAddToNodeList} />
 
           <div>
             <TitleSection>Catatan Aktif</TitleSection>
             <NotesList
-              notes={getNotes}
+              notes={activeNote}
               onDelete={this.onDeleteHandler}
               onMove={this.onMoveHandler}
             />
@@ -97,7 +96,7 @@ class MyNotesApp extends React.Component {
           <div>
             <TitleSection>Arsip</TitleSection>
             <NotesList
-              notes={getArchive}
+              notes={archivedNote}
               onDelete={this.onDeleteHandler}
               onMove={this.onMoveHandler}
             />
