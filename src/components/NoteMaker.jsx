@@ -56,7 +56,7 @@ export default class NoteMaker extends React.Component {
       title: this.state.titleValue,
       body: this.state.bodyValue,
       archived: false,
-      createdAt: new Date(),
+      createdAt: new Date().toISOString(),
     };
 
     onAddToNodeList(noteData);
