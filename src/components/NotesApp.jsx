@@ -67,7 +67,7 @@ class MyNotesApp extends React.Component {
       ? notes.filter((note) =>
           note.title.toLocaleLowerCase().includes(this.state.keySearch)
         )
-      : notes.filter((note) => !note.archived);
+      : notes
   }
 
   render() {
